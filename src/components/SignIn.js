@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn({ setName }) {
+export const SignIn = ({ setName }) => {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
@@ -82,6 +82,7 @@ export default function SignIn({ setName }) {
             onCompositionStart={() => {setIsComposed(true)}}
             onCompositionEnd={() => {setIsComposed(false)}}
           />
+
           <Button
             type="button"
             fullWidth
