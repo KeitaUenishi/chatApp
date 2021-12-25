@@ -18,7 +18,7 @@ export const MessageField = ({ name, setText, text, inputEl }) => {
         if(text === '') return;
 
         if(e.key === 'Enter'){
-          pushMessage({name: 'uenishi', text})
+          pushMessage({name, text})
           setText('');
 
           e.preventDefault();

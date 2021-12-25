@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MessageItem } from './MessageItem'
 
 import { messagesRef } from '../firebase';
-import { Autorenew } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
@@ -37,14 +36,19 @@ export const MessageList = () => {
     });
   }, []);
 
+  const length = messages.length;
 
   return (
     <List className={classes.root}>
-      {messages.map(({key, name, text}) => {
+      {messages.map(({key, name, text}, index) => {
+        const isLastItem = length === index + 1;
         return (
-          <MessageItem key={key} name={name} text={text}>
-            item
-          </MessageItem>
+          <MessageItem
+            key={key}
+            name={name}
+            text={text}
+            isLastItem={isLastItem}
+          />
           )
       })}
     </List>
