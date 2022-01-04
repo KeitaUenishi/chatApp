@@ -1,23 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
+import LinkOther from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { auth } from '../firebase';
+import { Link } from 'react-router-dom';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" 
+      <LinkOther color="inherit" 
             href="https://uenishi.cloud/"
             target="_blank"
             rel="noopener">
         uenishi
-      </Link>
+      </LinkOther>
     </Typography>
   );
 }
@@ -48,6 +51,17 @@ export const SignIn = ({ setName }) => {
   const [string, setString] = useState('');
   const [isComposed, setIsComposed] = useState(false);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { email, password } = event.target.elements;
+    console.log(email.value);
+    console.log(password.value);
+    auth.signInWithEmailAndPassword(
+      email.value,
+      password.value
+    );
+  };
+
   useEffect(() => {
     const disabled = string === '';
     setDisabled(disabled)
@@ -60,7 +74,11 @@ export const SignIn = ({ setName }) => {
         <Typography component="h1" variant="h5">
           ようこそ
         </Typography>
-        <form className={classes.form} noValidate>
+        <form 
+          className={classes.form}
+          noValidate
+          onSubmit={handleSubmit}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -83,20 +101,40 @@ export const SignIn = ({ setName }) => {
             onCompositionEnd={() => {setIsComposed(false)}}
           />
 
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="email"
+            name="email"
+          />
+
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            label="パスワード"
+            name="password"
+          />
+
           <Button
-            type="button"
+            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
             disabled={disabled}
-            onClick={() => {
-              setName(string)
-            }}
           >
-            はじめる
+            ログイン
           </Button>
         </form>
+      </div>
+      <div>
+        ユーザー登録は<Link to={'/signup'}>こちら</Link>から
       </div>
       <Box mt={8}>
         <Copyright />

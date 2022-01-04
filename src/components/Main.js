@@ -1,8 +1,12 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { MessageInputField } from './MessageInputField';
 import { MessageList } from './MessageList';
+
+import { auth } from '../firebase';
+import { useHistory } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -13,10 +17,20 @@ const useStyles = makeStyles({
 });
 
 export const Main = ({name}) => {
-const classes = useStyles();
+  const classes = useStyles();
+  const history = useHistory();
+
+  const handleLogout = () => {
+    auth.signOut();
+    history.push('/signin')
+  }
+
 
   return (
     <div className={classes.root}>
+      <div>
+        <button onClick={handleLogout}>ログアウト</button>
+      </div>
       <MessageList />
       <MessageInputField name={name}/>
     </div>
