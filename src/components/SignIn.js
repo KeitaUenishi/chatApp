@@ -1,4 +1,5 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect } from 'react';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { auth } from '../firebase';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -47,19 +48,27 @@ const useStyles = makeStyles((theme) => ({
 
 export const SignIn = ({ setName }) => {
   const classes = useStyles();
+  const history = useHistory();
+  const [error, setError] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [string, setString] = useState('');
   const [isComposed, setIsComposed] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
-    console.log(email.value);
-    console.log(password.value);
-    auth.signInWithEmailAndPassword(
+
+    try{
+      await auth.signInWithEmailAndPassword(
       email.value,
       password.value
-    );
+      );
+      history.push('/');
+    }
+    catch (error) {
+      console.log(error);
+      setError(error.message);
+    }
   };
 
   useEffect(() => {
@@ -74,6 +83,7 @@ export const SignIn = ({ setName }) => {
         <Typography component="h1" variant="h5">
           ようこそ
         </Typography>
+        {error && <Typography style={{ color: 'red' }} component="h3" variant="h6">{error}</Typography>}
         <form 
           className={classes.form}
           noValidate
