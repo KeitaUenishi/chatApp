@@ -1,36 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import { auth } from '../firebase';
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+import { auth } from '../../firebase';
+import { Copyright } from '../common/Copyright';
+import { ImputFormStyles } from '../styles/ImputFormStyles';
 
 export const SignUp = () => {
-  const classes = useStyles();
+  const classes = ImputFormStyles();
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,10 +37,9 @@ export const SignUp = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline>
-        <div className={classes.paper}>
+      <CssBaseline />
+      <div className={classes.paper}>
 
-        </div>
         <h1>ユーザ登録</h1>
         {error && <Typography style={{ color: 'red' }} component="h3" variant="h6">{error}</Typography>}
         <form className={classes.form} onSubmit={handleSubmit}>
@@ -113,11 +95,14 @@ export const SignUp = () => {
           >
             登録
           </Button>
-          <div>
-            ログインページは<Link to={'/login'}>こちら</Link>
-          </div>
         </form>
-      </CssBaseline>
+      </div>
+      <div>
+        ログインページは<Link to={'/signin'}>こちら</Link>
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
     </Container>
   );
 }

@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
-import { SignIn } from './SignIn';
+import { SignIn } from './login/SignIn';
 import { Main } from './Main';
-import { SignUp } from './SignUp'
+import { SignUp } from './login/SignUp'
 import { AuthProvider } from '../context/AuthContext';
 import { BrowserRouter, Route } from 'react-router-dom';
 

@@ -3,7 +3,7 @@ import { List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { MessageItem } from './MessageItem'
 
-import { messagesRef } from '../firebase';
+import { messagesRef } from '../../firebase';
 
 const useStyles = makeStyles({
   root: {

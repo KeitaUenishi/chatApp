@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react'
 import {Avatar, Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import { gravatarPath } from '../gravatar';
+import { gravatarPath } from '../../gravatar';
 
 import { MessageField } from './MessageField';
 import { MessageSubmitButton } from './MessageSubmitButton';
