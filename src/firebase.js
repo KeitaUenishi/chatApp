@@ -1,5 +1,6 @@
 
 import firebase from "firebase";
+import 'firebase/auth'
 
 const {
   REACT_APP_FIREBASE_API_KEY,
@@ -26,5 +27,7 @@ export const messagesRef = database.ref('messages');
 export const pushMessage = ({ name, text }) => {
   messagesRef.push({ name, text });
 }
+
+export const provider = new firebase.auth.GoogleAuthProvider();
 
 export const auth = firebase.auth();

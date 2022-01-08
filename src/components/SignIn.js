@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { auth } from '../firebase';
+import { auth, provider } from '../firebase';
 import { Link, useHistory } from 'react-router-dom';
 
 function Copyright() {
@@ -71,6 +71,15 @@ export const SignIn = ({ setName }) => {
     }
   };
 
+  const handleSubmitOnGoogle = async (event) => {
+    try{
+      await auth.signInWithPopup(provider);
+      history.push('/');
+    } catch (error){
+      setError(error.message);
+    }
+  }
+
   useEffect(() => {
     const disabled = string === '';
     setDisabled(disabled)
@@ -129,6 +138,7 @@ export const SignIn = ({ setName }) => {
             id="password"
             label="パスワード"
             name="password"
+            type="password"
           />
 
           <Button
@@ -141,7 +151,18 @@ export const SignIn = ({ setName }) => {
           >
             ログイン
           </Button>
+
         </form>
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleSubmitOnGoogle}
+        >
+          Googleでログイン
+        </Button>
       </div>
       <div>
         ユーザー登録は<Link to={'/signup'}>こちら</Link>から
