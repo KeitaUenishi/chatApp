@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import { auth } from '../../firebase';
@@ -15,10 +14,7 @@ import { ImputFormStyles } from '../styles/ImputFormStyles';
 export const SignUp = () => {
   const classes = ImputFormStyles();
   const history = useHistory();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isComposed, setIsComposed] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -51,17 +47,6 @@ export const SignUp = () => {
             id="email"
             label="メールアドレス"
             name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            onKeyDown={(e) => {
-              if(isComposed) return;
-
-              if(e.key === 'Enter'){
-                setEmail(e.target.value);
-                e.preventDefault();
-              }
-            }}
-            onCompositionStart={() => {setIsComposed(true)}}
-            onCompositionEnd={() => {setIsComposed(false)}}
           />
 
           <TextField
@@ -73,17 +58,6 @@ export const SignUp = () => {
             label="パスワード"
             name="password"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => {
-              if(isComposed) return;
-
-              if(e.key === 'Enter'){
-                setPassword(e.target.value);
-                e.preventDefault();
-              }
-            }}
-            onCompositionStart={() => {setIsComposed(true)}}
-            onCompositionEnd={() => {setIsComposed(false)}}
           />
 
           <Button

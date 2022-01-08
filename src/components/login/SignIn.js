@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,13 +12,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { Copyright } from '../common/Copyright';
 import { ImputFormStyles } from '../styles/ImputFormStyles';
 
-export const SignIn = ({ setName }) => {
+export const SignIn = () => {
   const classes = ImputFormStyles();
   const history = useHistory();
   const [error, setError] = useState('');
-  const [disabled, setDisabled] = useState(true);
-  const [string, setString] = useState('');
-  const [isComposed, setIsComposed] = useState(false);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,7 +30,6 @@ export const SignIn = ({ setName }) => {
       history.push('/');
     }
     catch (error) {
-      console.log(error);
       setError(error.message);
     }
   };
@@ -45,11 +42,6 @@ export const SignIn = ({ setName }) => {
       setError(error.message);
     }
   }
-
-  useEffect(() => {
-    const disabled = string === '';
-    setDisabled(disabled)
-  }, [string])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -64,27 +56,6 @@ export const SignIn = ({ setName }) => {
           noValidate
           onSubmit={handleSubmit}
         >
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="name"
-            label="ニックネーム"
-            name="name"
-            autoFocus
-            onChange={(e) => setString(e.target.value)}
-            onKeyDown={(e) => {
-              if(isComposed) return;
-
-              if(e.key === 'Enter'){
-                setName(e.target.value);
-                e.preventDefault();
-              }
-            }}
-            onCompositionStart={() => {setIsComposed(true)}}
-            onCompositionEnd={() => {setIsComposed(false)}}
-          />
 
           <TextField
             variant="outlined"
@@ -113,7 +84,6 @@ export const SignIn = ({ setName }) => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={disabled}
           >
             ログイン
           </Button>
