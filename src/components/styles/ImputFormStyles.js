@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const ImputFormStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

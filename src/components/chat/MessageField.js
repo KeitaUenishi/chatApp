@@ -4,7 +4,6 @@ import { pushMessage } from '../../firebase';
 
 export const MessageField = ({ name, setText, text, inputEl }) => {
   const [isComposed, setIsComposed] = useState(false);
-  const [pushText, setPushText] = useState();
 
   return (
     <TextField

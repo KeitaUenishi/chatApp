@@ -14,6 +14,10 @@ export const Main = () => {
   } else if (user && name === '') {
     return <NameInputForm setName={setName}/>
   } else {
-    return <ChatPage name={name}/>
+    return (
+      <>
+        <ChatPage name={name}/>
+      </>
+    )
   }
 }
