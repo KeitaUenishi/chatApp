@@ -1,20 +1,10 @@
 import React, { useState } from 'react'
 import { TextField } from '@material-ui/core'
 import { pushMessage } from '../../firebase';
-import { changeText } from '../../function/commonFunction';
+import { changeMessage } from '../../function/commonFunction';
 
 export const MessageField = ({ name, setText, text, inputEl }) => {
   const [isComposed, setIsComposed] = useState(false);
-
-  const changeMessage = (text) => {
-    const beforeText = text.split('');
-    let returnText= '';
-    beforeText.map((text) => {
-      const setChar = text.toString().charCodeAt(0);
-      returnText = returnText + changeText(setChar);
-    })
-    return returnText;
-  }
 
   return (
     <TextField

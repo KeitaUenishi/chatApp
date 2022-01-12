@@ -1,6 +1,17 @@
 import React from 'react'
+import kuromoji from 'kuromoji'
 
 export const changeMessage = (text) => {
+
+  kuromoji.builder({ dicPath: "/dict" }).build((err, tokenizer) => {
+    if(err){
+      console.log(err)
+    } else {
+      const tokens = tokenizer.tokenize(text)
+      console.log(tokens)
+    }
+  })
+
   const beforeText = text.split('');
   let returnText= '';
   beforeText.map((text) => {
