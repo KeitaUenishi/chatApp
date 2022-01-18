@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from 'react'
 import { ListItem, ListItemAvatar, ListItemText, Avatar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { gravatarPath } from '../../gravatar';
-
 const useStyles = makeStyles(() => ({
   inline: {
     display: 'inline',
@@ -13,7 +11,6 @@ const useStyles = makeStyles(() => ({
 export const MessageItem = ({isLastItem ,name, text}) => {
   const ref = useRef(null);
   const classes = useStyles();
-  const avaterPath = gravatarPath(name);
 
   useEffect(() => {
     if(isLastItem){
@@ -24,7 +21,7 @@ export const MessageItem = ({isLastItem ,name, text}) => {
   return (
     <ListItem divider={true} ref={ref}>
         <ListItemAvatar>
-          <Avatar src={avaterPath} />
+          <Avatar alt='Primitive Man' src={`${process.env.PUBLIC_URL}/static/images/primitiveMan.jpeg`} />
         </ListItemAvatar>
         <ListItemText
           primary={name}

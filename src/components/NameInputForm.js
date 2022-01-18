@@ -26,7 +26,7 @@ export const NameInputForm = ({ setName }) => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          名前を入力してください
+          オマエ ナマエ ナニ
         </Typography>
         <form 
           className={classes.form}
@@ -64,7 +64,7 @@ export const NameInputForm = ({ setName }) => {
               setName(string)
             }}
           >
-            はじめる
+            ハジメル
           </Button>
         </form>
       </div>
