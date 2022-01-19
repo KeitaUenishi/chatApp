@@ -34,7 +34,7 @@ export const Header = () => {
       <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h6" align="center" className={classes.title}>
-            オレタチ ハナス バショ
+            オレタチ ハナス バショ ココ
           </Typography>
           <Button color="inherit" onClick={handleLogout}>ログアウト</Button>
         </Toolbar>
