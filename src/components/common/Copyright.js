@@ -7,7 +7,7 @@ export const Copyright = () => {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <LinkOther color="inherit" 
-            href="https://uenishi.cloud/"
+            href="https://www.youtube.com/watch?v=xgd5Mt25koI"
             target="_blank"
             rel="noopener">
         uenishi

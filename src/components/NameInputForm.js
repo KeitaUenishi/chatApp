@@ -26,7 +26,13 @@ export const NameInputForm = ({ setName }) => {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          オマエ ナマエ ナニ
+          <div className={classes.text}>
+            ココ ゲンシジン アツマル<br/>
+            オマエ ナマエ ナニ<br/>
+            ミンナ アタマ ゲンシ モドル<br/>
+            ムズカシイ コトバ ヌゥゥゥン ナル<br/>
+          </div>
+
         </Typography>
         <form 
           className={classes.form}
@@ -38,7 +44,7 @@ export const NameInputForm = ({ setName }) => {
             required
             fullWidth
             id="name"
-            label="ニックネーム"
+            label="ナマエ…"
             name="name"
             autoFocus
             onChange={(e) => setString(e.target.value)}

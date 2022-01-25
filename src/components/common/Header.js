@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    position: 'relative',
+    left: '2.3em',
   },
 }));
 
@@ -36,7 +38,7 @@ export const Header = () => {
           <Typography variant="h6" align="center" className={classes.title}>
             オレタチ ハナス バショ ココ
           </Typography>
-          <Button color="inherit" onClick={handleLogout}>ログアウト</Button>
+          <Button color="inherit" onClick={handleLogout}>ログ アウト</Button>
         </Toolbar>
       </AppBar>
     </div>
