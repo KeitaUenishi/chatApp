@@ -2,9 +2,9 @@ import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
 
+// @ts-ignore
 import { MessageInputField } from './chat/MessageInputField';
 import { MessageList } from './chat/MessageList';
-
 
 const useStyles = makeStyles({
   root: {
@@ -14,7 +14,11 @@ const useStyles = makeStyles({
   },
 });
 
-export const ChatPage = ({name}) => {
+type Props = {
+  name: string;
+}
+
+export const ChatPage: React.FC<Props> = ({name}) => {
   const classes = useStyles();
 
   return (

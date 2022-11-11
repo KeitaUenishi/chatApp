@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { MessageItem } from './MessageItem'
 
+// @ts-ignore
+import { MessageItem } from './MessageItem'
+// @ts-ignore
 import { messagesRef } from '../../firebase';
 
 const useStyles = makeStyles({
@@ -13,6 +15,22 @@ const useStyles = makeStyles({
   },
 });
 
+type NameAndMessage = {
+  name: string;
+  text: string;
+}
+
+type Entry = [
+  string,
+  NameAndMessage[]
+]
+
+type NewMessage = {
+  key: string;
+  name: string;
+  text: string;
+}
+
 export const MessageList = () => {
   const [messages, setMessages] = useState([])
   const classes = useStyles();
@@ -21,17 +39,24 @@ export const MessageList = () => {
     messagesRef
     .orderByKey()
     .limitToLast(30)
-    .on('value', (snapshot) => {
+    .on('value', (snapshot: any) => {
       const messages = snapshot.val();
+
       if (messages === null) return;
 
-      const entries = Object.entries(messages);
-      const newMessages = entries.map((entry) => {
-        //const key = entry[0];
-        //const nameAndText = entry[1]
+      const entries: Entry[] = Object.entries(messages);
+      console.log(entries);
+
+      const newMessages: any = entries.map((entry): NewMessage => {
         const [key, nameAndText] = entry;
+
+        console.log({ key, ...nameAndText })
+
+        // @ts-ignore
         return { key, ...nameAndText };
       });
+      
+      console.log(newMessages);
       setMessages(newMessages);
     });
   }, []);
