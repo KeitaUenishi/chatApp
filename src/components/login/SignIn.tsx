@@ -10,10 +10,10 @@ import Container from '@material-ui/core/Container';
 import { auth, provider } from '../../firebase';
 import { Link, useHistory } from 'react-router-dom';
 import { Copyright } from '../common/Copyright';
-import { ImputFormStyles } from '../styles/ImputFormStyles';
+import { InputFormStyles } from '../styles/InputFormStyles';
 
 export const SignIn = () => {
-  const classes = ImputFormStyles();
+  const classes = InputFormStyles();
   const history = useHistory();
   const [error, setError] = useState('');
 

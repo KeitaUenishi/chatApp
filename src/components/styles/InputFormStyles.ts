@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const ImputFormStyles = makeStyles((theme) => ({
+export const InputFormStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(10),
     display: "flex",

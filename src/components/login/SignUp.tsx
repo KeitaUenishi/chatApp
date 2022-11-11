@@ -9,10 +9,10 @@ import Button from '@material-ui/core/Button';
 
 import { auth } from '../../firebase';
 import { Copyright } from '../common/Copyright';
-import { ImputFormStyles } from '../styles/ImputFormStyles';
+import { InputFormStyles } from '../styles/InputFormStyles';
 
 export const SignUp = () => {
-  const classes = ImputFormStyles();
+  const classes = InputFormStyles();
   const history = useHistory();
   const [error, setError] = useState('');
 
