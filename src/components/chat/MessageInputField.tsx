@@ -12,7 +12,11 @@ const useStyles = makeStyles({
   },
 });
 
-export const MessageInputField = ({ name }) => {
+type Props = {
+  name: string;
+}
+
+export const MessageInputField: React.FC<Props> = ({ name }) => {
   const inputEl = useRef(null)
   const [text, setText] = useState('')
   const classes = useStyles();
@@ -25,14 +29,14 @@ export const MessageInputField = ({ name }) => {
         </Grid>
         <Grid item xs={10}>
           <MessageField
-            inputEl={inputEl}
+            inputElement={inputEl}
             name={name}
             setText={setText}
             text={text}/>
         </Grid>
         <Grid item xs={1}>
           <MessageSubmitButton
-            inputEl={inputEl}
+            inputElement={inputEl}
             name={name}
             setText={setText}
             text={text} />

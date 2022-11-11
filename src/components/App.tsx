@@ -23,7 +23,6 @@ export default () => {
       <BrowserRouter>
         <Route exact path="/" >
           <Header/>
-          <div className={classes.toolbarMargin}/>
           <Main />
         </Route>
         <Route path="/signup" component={SignUp} />

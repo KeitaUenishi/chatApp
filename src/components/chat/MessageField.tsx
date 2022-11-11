@@ -2,12 +2,21 @@ import React, { useState } from 'react'
 import { TextField } from '@material-ui/core'
 import { submitMessage } from '../../function/commonFunction';
 
-export const MessageField = ({ name, setText, text, inputEl }) => {
+type Props = {
+  inputElement: React.MutableRefObject<HTMLInputElement | null>;
+  name: string;
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const MessageField: React.FC<Props> = ({ name, setText, text, inputElement }) => {
   const [isComposed, setIsComposed] = useState(false);
 
-  const fieldAction = (e) => {
+  const fieldAction = (e: React.KeyboardEvent<HTMLInputElement>) => {
     try{
       if(isComposed) return;
+
+      if (!(e.target instanceof HTMLInputElement)) return;
 
       let text = e.target.value;
       if(text === '') return;
@@ -26,9 +35,12 @@ export const MessageField = ({ name, setText, text, inputEl }) => {
     <TextField
       autoFocus
       fullWidth={true}
-      inputRef={inputEl}
-      onChangeCapture={(e) => setText(e.target.value)}
-      onKeyDown={(e) => fieldAction(e)}
+      inputRef={inputElement}
+      onChangeCapture={(e: React.KeyboardEvent<HTMLInputElement>) => {
+        if(!(e.target instanceof HTMLInputElement)) return;
+        setText(e.target.value)
+      }}
+      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => fieldAction(e)}
       onCompositionStart={() => {setIsComposed(true)}}
       onCompositionEnd={() => {setIsComposed(false)}}
       value={text}

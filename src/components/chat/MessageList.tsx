@@ -45,12 +45,9 @@ export const MessageList = () => {
       if (messages === null) return;
 
       const entries: Entry[] = Object.entries(messages);
-      console.log(entries);
 
       const newMessages: any = entries.map((entry): NewMessage => {
         const [key, nameAndText] = entry;
-
-        console.log({ key, ...nameAndText })
 
         // @ts-ignore
         return { key, ...nameAndText };

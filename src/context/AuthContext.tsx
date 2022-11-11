@@ -7,7 +7,11 @@ export function useAuthContext() {
   return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
+type Props = {
+  children: React.ReactNode;
+}
+
+export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -17,7 +21,8 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    const unsubscribed = auth.onAuthStateChanged((user) => {
+    // TODO: 暫定でany型にしている
+    const unsubscribed = auth.onAuthStateChanged((user: any) => {
       setUser(user);
       setLoading(false);
     });
