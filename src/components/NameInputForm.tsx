@@ -7,19 +7,23 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import { ImputFormStyles } from './styles/ImputFormStyles';
+import { InputFormStyles } from './styles/InputFormStyles';
 import { Copyright } from './common/Copyright';
 
-export const NameInputForm = ({ setName }) => {
-  const classes = ImputFormStyles();
+type Props = {
+  setName: React.Dispatch<React.SetStateAction<string>>
+}
+
+export const NameInputForm: React.FC<Props> = ({ setName }) => {
+  const classes = InputFormStyles();
   const [disabled, setDisabled] = useState(true);
-  const [string, setString] = useState('');
+  const [inputString, setInputString] = useState('');
   const [isComposed, setIsComposed] = useState(false);
 
   useEffect(() => {
-    const disabled = string === '';
+    const disabled = inputString === '';
     setDisabled(disabled)
-  }, [string])
+  }, [inputString])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -47,11 +51,14 @@ export const NameInputForm = ({ setName }) => {
             label="ナマエ…"
             name="name"
             autoFocus
-            onChange={(e) => setString(e.target.value)}
-            onKeyDown={(e) => {
+            onChange={(e) => setInputString(e.target.value)}
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
               if(isComposed) return;
 
               if(e.key === 'Enter'){
+
+                if (!(e.target instanceof HTMLInputElement)) return;
+
                 setName(e.target.value);
                 e.preventDefault();
               }
@@ -67,7 +74,7 @@ export const NameInputForm = ({ setName }) => {
             className={classes.submit}
             disabled={disabled}
             onClick={() => {
-              setName(string)
+              setName(inputString)
             }}
           >
             ハジメル
