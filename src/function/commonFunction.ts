@@ -1,10 +1,7 @@
 import kuromoji from 'kuromoji'
-import { pushMessage } from '../firebase';
 
 type Props = {
-  name: string;
   text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type Token = {
@@ -23,16 +20,11 @@ type Token = {
   pronunciation: string
 }
 
-export const submitMessage = ({ name, text, setText }: Props) => {
-  const createText = changeMessage(text)
-
-  createText.then((text) => {
-    pushMessage(name, text);
-    setText('');
-  })
+export const submitMessage = async ({ text }: Props): Promise<string> => {
+  return await changeMessage(text);
 }
 
-const changeMessage = (text: string): Promise<string> => {
+const changeMessage = async (text: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     let tokens: Token[];
 
@@ -42,13 +34,13 @@ const changeMessage = (text: string): Promise<string> => {
         return reject("reject");
       } else {
         tokens = tokenizer.tokenize(text) as any;
-        return resolve(changeTextToPrimitiveHuman(tokens))
+        return resolve(changeTextToPrimitiveHuman(tokens));
       }
     })
   })
 }
 
-const changeTextToPrimitiveHuman = (tokens: Token[]): string => {
+const changeTextToPrimitiveHuman = async (tokens: Token[]): Promise<string> => {
   const text = tokens.map((token) => {
     if(token.word_type === 'UNKNOWN') return 'ヌゥゥゥン！！';
     if(token.pos === '助詞'){

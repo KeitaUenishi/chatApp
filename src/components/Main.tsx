@@ -5,7 +5,11 @@ import { useAuthContext } from '../context/AuthContext';
 import { NameInputForm } from './NameInputForm';
 import { ChatPage } from './ChatPage';
 
-export const Main = () => {
+type Props = {
+  handleLoading: (isLoad: boolean) => Promise<void>;
+}
+
+export const Main: React.FC<Props> = ({ handleLoading }) => {
   const[name, setName] = useState('');
   //TODO: any型をなくす
   const { user } = useAuthContext() as any;
@@ -15,6 +19,10 @@ export const Main = () => {
   } else if (user && name === '') {
     return <NameInputForm setName={setName}/>
   } else {
-    return <ChatPage name={name}/>
+    return (
+      <>
+        <ChatPage name={name} handleLoading={handleLoading}/>
+      </>
+    )
   }
 }

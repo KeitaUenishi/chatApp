@@ -1,29 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
-import { SignIn } from './login/SignIn';
-import { Main } from './Main';
-import { SignUp } from './login/SignUp'
-import { AuthProvider } from '../context/AuthContext';
+import { OverlaySpinner } from './common/OverlaySpinner';
 import { Header } from './common/Header';
+import { SignIn } from './login/SignIn';
+import { SignUp } from './login/SignUp';
+import { Main } from './Main';
+import { AuthProvider } from '../context/AuthContext';
 
-const useStyles = makeStyles((theme) => ({
-  offset: {
-    ...theme.mixins.toolbar,
-    flexGrow: 1,
-  },
-}));
 
-export default () => {
-  const classes = useStyles();
+export const App = () => {
 
+
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const handleLoading = async (isLoad: boolean) => {
+    setIsLoading(isLoad);
+  }
   return(
     <AuthProvider>
       <BrowserRouter>
         <Route exact path="/" >
+          {isLoading && <OverlaySpinner />}
           <Header/>
-          <Main />
+          <Main handleLoading={handleLoading}/>
         </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" >

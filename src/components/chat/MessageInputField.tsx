@@ -14,9 +14,10 @@ const useStyles = makeStyles({
 
 type Props = {
   name: string;
+  handleLoading: (isLoad: boolean) => Promise<void>;
 }
 
-export const MessageInputField: React.FC<Props> = ({ name }) => {
+export const MessageInputField: React.FC<Props> = ({ name, handleLoading }) => {
   const inputEl = useRef(null)
   const [text, setText] = useState('')
   const classes = useStyles();
@@ -31,15 +32,19 @@ export const MessageInputField: React.FC<Props> = ({ name }) => {
           <MessageField
             inputElement={inputEl}
             name={name}
+            text={text}
             setText={setText}
-            text={text}/>
+            handleLoading={handleLoading}
+          />
         </Grid>
         <Grid item xs={1}>
           <MessageSubmitButton
             inputElement={inputEl}
             name={name}
             setText={setText}
-            text={text} />
+            text={text}
+            handleLoading={handleLoading}
+          />
         </Grid>
       </Grid>
     </div>
