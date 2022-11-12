@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { TextField } from '@material-ui/core'
+
+import { pushMessage } from '../../firebase';
+
 import { submitMessage } from '../../function/commonFunction';
 
 type Props = {
@@ -7,12 +10,13 @@ type Props = {
   name: string;
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
+  handleLoading: (isLoad: boolean) => Promise<void>;
 }
 
-export const MessageField: React.FC<Props> = ({ name, setText, text, inputElement }) => {
+export const MessageField: React.FC<Props> = ({ name, text, inputElement, setText, handleLoading }) => {
   const [isComposed, setIsComposed] = useState(false);
 
-  const fieldAction = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     try{
       if(isComposed) return;
 
@@ -22,7 +26,14 @@ export const MessageField: React.FC<Props> = ({ name, setText, text, inputElemen
       if(text === '') return;
 
       if(e.key === 'Enter'){
-        submitMessage({ name, text, setText });
+        handleLoading(true);
+
+        //TODO: MessageSubmitButtonと共通化したい
+        submitMessage({ text }).then((convertText) => {
+          pushMessage(name, convertText);
+          setText('');
+          handleLoading(false);
+        })
         e.preventDefault();
       }
     }
@@ -32,18 +43,20 @@ export const MessageField: React.FC<Props> = ({ name, setText, text, inputElemen
   }
 
   return (
-    <TextField
-      autoFocus
-      fullWidth={true}
-      inputRef={inputElement}
-      onChangeCapture={(e: React.KeyboardEvent<HTMLInputElement>) => {
-        if(!(e.target instanceof HTMLInputElement)) return;
-        setText(e.target.value)
-      }}
-      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => fieldAction(e)}
-      onCompositionStart={() => {setIsComposed(true)}}
-      onCompositionEnd={() => {setIsComposed(false)}}
-      value={text}
-    />
+    <>
+      <TextField
+        autoFocus
+        fullWidth={true}
+        inputRef={inputElement}
+        onChangeCapture={(e: React.KeyboardEvent<HTMLInputElement>) => {
+          if(!(e.target instanceof HTMLInputElement)) return;
+          setText(e.target.value)
+        }}
+        onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => handleKeyDown(e)}
+        onCompositionStart={() => {setIsComposed(true)}}
+        onCompositionEnd={() => {setIsComposed(false)}}
+        value={text}
+      />
+    </>
   );
 };

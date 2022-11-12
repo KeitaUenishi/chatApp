@@ -12,12 +12,18 @@ import { AuthProvider } from '../context/AuthContext';
 export const App = () => {
 
 
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const handleLoading = async (isLoad: boolean) => {
+    setIsLoading(isLoad);
+  }
   return(
     <AuthProvider>
       <BrowserRouter>
         <Route exact path="/" >
+          {isLoading && <OverlaySpinner />}
           <Header/>
-          <Main />
+          <Main handleLoading={handleLoading}/>
         </Route>
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" >

@@ -15,15 +15,16 @@ const useStyles = makeStyles({
 
 type Props = {
   name: string;
+  handleLoading: (isLoad: boolean) => Promise<void>;
 }
 
-export const ChatPage: React.FC<Props> = ({name}) => {
+export const ChatPage: React.FC<Props> = ({name, handleLoading}) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <MessageList />
-      <MessageInputField name={name}/>
+      <MessageInputField name={name} handleLoading={handleLoading}/>
     </div>
   )
 }
