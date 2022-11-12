@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { List } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-// @ts-ignore
 import { MessageItem } from './MessageItem'
-// @ts-ignore
 import { messagesRef } from '../../firebase';
 
 const useStyles = makeStyles({
