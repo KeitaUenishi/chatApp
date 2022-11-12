@@ -1,4 +1,5 @@
 import React, {useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,39 +8,47 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import { auth, provider } from '../../firebase';
-import { Link, useHistory } from 'react-router-dom';
 import { Copyright } from '../common/Copyright';
 import { InputFormStyles } from '../styles/InputFormStyles';
+
+import { auth, provider } from '../../firebase';
 
 export const SignIn = () => {
   const classes = InputFormStyles();
   const history = useHistory();
   const [error, setError] = useState('');
 
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
+    
+    if(!(event.target instanceof HTMLFormElement)) return;
+
+    // TODO: any型をなくす
+    const { email, password } = event.target.elements as any;
 
     try{
       await auth.signInWithEmailAndPassword(
-      email.value,
-      password.value
+        email.value,
+        password.value
       );
+
       history.push('/');
     }
     catch (error) {
-      setError(error.message);
+      if(error instanceof Error) {
+        setError(error.message);
+      }
     }
   };
 
-  const handleSubmitOnGoogle = async (event) => {
+  const handleSubmitOnGoogle = async () => {
     try{
       await auth.signInWithPopup(provider);
       history.push('/');
     } catch (error){
-      setError(error.message);
+      if(error instanceof Error) {
+        setError(error.message);
+      }
     }
   }
 

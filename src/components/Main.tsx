@@ -7,7 +7,8 @@ import { ChatPage } from './ChatPage';
 
 export const Main = () => {
   const[name, setName] = useState('');
-  const { user } = useAuthContext();
+  //TODO: any型をなくす
+  const { user } = useAuthContext() as any;
 
   if (!user) {
     return <Redirect to="/signin" />

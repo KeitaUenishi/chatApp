@@ -16,9 +16,13 @@ export const SignUp = () => {
   const history = useHistory();
   const [error, setError] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
+
+    if(!(event.target instanceof HTMLFormElement)) return;
+
+    //TODO: any型をなくす
+    const { email, password } = event.target.elements as any;
 
     try{
       await auth.createUserWithEmailAndPassword(
@@ -27,7 +31,9 @@ export const SignUp = () => {
       );
       history.push('/');
     }catch (error){
-      setError(error.message);
+      if(error instanceof Error) {
+        setError(error.message);
+      }
     }
   };
 

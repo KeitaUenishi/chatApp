@@ -53,7 +53,6 @@ export const MessageList = () => {
         return { key, ...nameAndText };
       });
       
-      console.log(newMessages);
       setMessages(newMessages);
     });
   }, []);

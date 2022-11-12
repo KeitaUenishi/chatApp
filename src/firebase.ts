@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import { initializeApp } from "firebase/app";
 import "firebase/auth";
 
 const {
@@ -21,14 +21,15 @@ const firebaseConfig = {
   appId: REACT_APP_FIREBASE_APP_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 const database = firebase.database();
 export const messagesRef = database.ref("messages");
 
-export const pushMessage = ({ name, text }) => {
+export const pushMessage = (name: string, text:string) => {
   messagesRef.push({ name, text });
 };
 
+//@ts-ignore
 export const provider = new firebase.auth.GoogleAuthProvider();
 
 export const auth = firebase.auth();
